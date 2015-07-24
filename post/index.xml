@@ -7,8 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved - 2015</copyright>
-    <lastBuildDate>Thu, 09 Jul 2015 17:08:11 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2015 14:31:38 -0700</lastBuildDate>
     <atom:link href="//eighthbyte.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hello</title>
+      <link>//eighthbyte.com/post/HELLO%20WORLD/</link>
+      <pubDate>Fri, 24 Jul 2015 14:31:38 -0700</pubDate>
+      
+      <guid>//eighthbyte.com/post/HELLO%20WORLD/</guid>
+      <description>&lt;p&gt;Every blog author needs a first post on a new blog. Hello there.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>First Post</title>
