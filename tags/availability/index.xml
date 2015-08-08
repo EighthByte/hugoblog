@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Eighth Byte</title>
-    <link>//eighthbyte.com/post/</link>
-    <description>Recent content in Posts on Eighth Byte</description>
+    <title>Availability on Eighth Byte</title>
+    <link>//eighthbyte.com/tags/availability/</link>
+    <description>Recent content in Availability on Eighth Byte</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved - 2015</copyright>
     <lastBuildDate>Fri, 07 Aug 2015 21:35:02 -0700</lastBuildDate>
-    <atom:link href="//eighthbyte.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//eighthbyte.com/tags/availability/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The Highly Available Nomad -- Part I</title>
