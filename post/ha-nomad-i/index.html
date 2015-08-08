@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" The Highly Available Nomad -- Part I &middot;  Eighth Byte" />
+  	<meta property="og:site_name" content="Eighth Byte" />
+  	<meta property="og:url" content="//eighthbyte.com/post/ha-nomad-i/" />
+    
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2015-08-07T21:35:02-07:00" />
+
+    
+    <meta property="og:article:tag" content="FreeBSD" />
+    
+    <meta property="og:article:tag" content="30&#43;" />
+    
+    <meta property="og:article:tag" content="Availability" />
+    
+    <meta property="og:article:tag" content="Redundancy" />
+    
+    
+
+  <title>
+     The Highly Available Nomad -- Part I &middot;  Eighth Byte
+  </title>
+
+    <meta name="description" content="Tech Blog" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="//eighthbyte.com/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="//eighthbyte.com/images/apple-touch-icon.png" />
+    
+    <link rel="stylesheet" type="text/css" href="//eighthbyte.com/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+        <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Eighth Byte" />
+    
+    <meta name="generator" content="Hugo 0.15-DEV" />
+
+    <link rel="canonical" href="//eighthbyte.com/post/ha-nomad-i/" />
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-65431024-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://feeds.feedburner.com/...">Subscribe</a> </div>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="//eighthbyte.com/"><img src="//eighthbyte.com/images/logo.png" alt="Home" /></a>
+  
+  
+      <a class="menu-button icon-feed" href="//eighthbyte.com/index.xml">&nbsp;&nbsp;Subscribe</a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">The Highly Available Nomad -- Part I</h1>
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2015-08-07T21:35:02-07:00">
+            Aug 7, 2015
+          </time>
+        
+         
+          <span class="post-tag small"><a href="//eighthbyte.com/tags/freebsd/">#FreeBSD</a></span>
+         
+          <span class="post-tag small"><a href="//eighthbyte.com/tags/30/">#30&#43;</a></span>
+         
+          <span class="post-tag small"><a href="//eighthbyte.com/tags/availability/">#Availability</a></span>
+         
+          <span class="post-tag small"><a href="//eighthbyte.com/tags/redundancy/">#Redundancy</a></span>
+         
+        </section>
+    </header>
+  
+    <section class="post-content">
+      
+
+<h1 id="the-highly-available-nomad-part-i:9a1083e3fbcd240cd5584227bfa91e2d">The Highly Available Nomad &ndash; Part I</h1>
+
+<p>Being a child of the 80s and 90s, the proliferation of cheap relatively perfomant hardware still surprises
+me. As a tween, my massive 486 (with a tiny fraction of the perfomance and storage of my current cheap &ldquo;netbook&rdquo;,
+or even just my phone), well, it was far from mobile, even though I do remember lugging it to a friend&rsquo;s house,
+CRT monitor, mechanical keyboard, 20 or so 2.5&rdquo; slackware floppies and all.</p>
+
+<p>Eventually laptops were relatively accessible, in fact I still have a Compaq Presario I got in 2001-2002, now running NetBSD 5.x
+on a 6GB hard drive, which has taken quite a beating. Amazingly, it works fine, and with a USB -&gt; ethernet
+adapter I have, I can actually put it online (and a fun story for another time: I had to patch the kernel image
+manually with sed or something to get it to recognize the vendor and device ID of said USB card). In fact I could
+probably take it to a coffee shop tomorrow and chain it to another device to get on WiFi without much trouble.</p>
+
+<p>And then I&rsquo;d have a functioning -albeit narrow- terminal, which brings me to my point: most of my daily work, whether it&rsquo;s on
+a shiny new $2500 Macbook Pro, or my $250 ARM chromebook, consists of working in the terminal. Partly out of comfort and choice,
+and partly out of necessity. I&rsquo;m not averse to GUIs or IDEs or even Sublime Text, but really, all I usually need
+is a terminal and a browser, and I can Get Stuff Done.</p>
+
+<p>Due to the availability of easily accessible broadband and cheap machines, most compute heavy loads I need I can push off
+to a more powerful machine in some static location, or to the cloud or whatever, and so can you of course. Though I know the state of the &ldquo;cloud&rdquo;
+and modern Internet is far from perfect, every day at least once a day momentarily, I&rsquo;m still astounded and hit with some form of
+future shock. I have this amazing compute power available, and I&rsquo;m now in the position of having to <em>figure out what to do with it all</em>.
+Growing up with an interest in computing, I knew this was coming, and yet it still doesn&rsquo;t feel 100% normal yet. I doubt it ever will.</p>
+
+<p>Regardless, having that expectation of cheap, easily available technology in my childhood brain, the vivid image of the &lsquo;nomad hacker&rsquo; was always there. I often envisioned myself walking down the street at night (near some dark vacant lot with a single street lamp perhaps) and then just finding a place to kneel, busting out my laptop, and starting to hack away on something intense and important.</p>
+
+<p>Well, I&rsquo;m there and I can do that now, though of course I&rsquo;d probably find a place to sit and use my smartphone instead. But I&rsquo;m also older now and the reality has hit me that as the number of tasks grows, switching contexts just becomes a pain point, and switch contexts comes with the territory of having many cheap devices. I also have to consider <em>actual</em> engineering concerns: what about data redundancy? Hardware failures? And why should I put any data I want to own on the cloud anyway? To any members of the next computing junkie generation who may have already figured these points out &ndash; I admire and commend you.</p>
+
+<p>Anyway, I prefer to host at least some of my own services in conjunction with cloud hosting. I prefer to use cheap laptops so I can break them and not really care. And I need a redundant, highly available environment from which to work. And I don&rsquo;t just need redundancy of hardware, but also network redundancy &ndash; with just a few internet services providers around, I need my &ldquo;personal work service&rdquo; to be reachable via at least two of them, all the time. Failure is not an option and I don&rsquo;t trust anyone to actually provide this level of service.</p>
+
+<p>I have some hardware, a few sites with working internet where I can install it, and these requirements to work with:</p>
+
+<ul>
+<li>a couple cheap chromebooks as web browsers / SSH terminals (<sup>1</sup>&frasl;<sub>4</sub> the cost of a macbook and <sup>2</sup>&frasl;<sub>3</sub> the cost of a high end PC laptop)</li>
+<li>5 - 7 cheap, commodity 64-bit PCs and laptops, none of which is more than 5 years old. All of these with &gt;300GB disk and &gt;=4GB RAM, all running Linux, and all with VT-x or AMD-V (for KVM support)</li>
+<li>a few (2-3) cheap cloud hosts to act as gateways for routing back to my various &lsquo;sites&rsquo;. This is of course slow, but I try to avoid forwarding ports at the sites themselves to keep router configuration as simple as possible.</li>
+</ul>
+
+<p>On top of all that, as a user, I love FreeBSD (and all the BSDs in fact &ndash; they all have something great to offer in my experience). This
+brings my &ldquo;plan&rdquo; into focus:</p>
+
+<ul>
+<li>I have a few different hypervisors to work with on which I know FreeBSD works fairly well:
+
+<ul>
+<li>KVM</li>
+<li>Xen</li>
+<li>xhyve on Mac OS</li>
+</ul></li>
+</ul>
+
+<p>Using a few different hypervisors is mostly a &ldquo;for experience&rdquo; thing for me, though of course the diversity might prove to be advantageous if a critical hypvervisor bug affects any of them: due to redundancy, I can just kill that instance, patch the bug, and restart without any service &ldquo;downtime&rdquo; (By the way, do check out the <a href="https://github.com/mist64/xhyve">xhyve project</a> if you haven&rsquo;t already. It&rsquo;s one of the most interesting things to happen to OS X in a while, IMO).</p>
+
+<ul>
+<li><p>An instance of FreeBSD in &ldquo;the cloud&rdquo; &ndash; really either on AWS or some provider offering KVM. The location of the physical hardware hosting this instance could matter. Since I&rsquo;m in Arizona, if I go with EC2, US-West-2 is probably a good choice (which I believe is in Southern Californa). Basically I want to reduce latency between any major ISP I&rsquo;m stuck with and my main gateway host. This host&rsquo;s main job is to act as a CARP front-end for an SSH VPN.</p></li>
+
+<li><p>A second FreeBSD instance on a second, separate cloud service provider &ndash; to provide redundancy redundancy.</p></li>
+
+<li><p>DNS can be seen as a SPOF, but I&rsquo;m not too worried about it as I can host my own. In fact this is a good reason to stick with static IPs for this sort of configuration, and another good reason to have at least two bastion hosts, since the IP address(es) assigned to any of your cloud hosts might be reallocated at any time.</p></li>
+
+<li><p>File-level synchronization of FreeBSD HA VMs across LANs and WANs &ndash; I&rsquo;m thinking good old unison and some shell scripting.  Chief requirement is that although I don&rsquo;t need the different HA hosts to be bit-for-bit identical, I would like for them to be functionally identical, and for most purposes, indistinguishable. So if I install a package on one host, all the others need to reflect that change as quickly as possible.  My synchronization protocol needs to be smart. When I log into any one instance and start making changes, this instance needs to become the &lsquo;master&rsquo; and needs to distribute changes to the other, at present unused, nodes as quickly as possible.</p></li>
+
+<li><p>Maybe eventually replace the file-level synchronization with block level sync using &ldquo;ZFS send&rdquo;, or something like that. Right now I&rsquo;m not using ZFS on my root filesystems.</p></li>
+
+<li><p>Full disk encryption. Right now I&rsquo;m letting the hypervisor / host machines handle this.</p></li>
+
+<li><p>Let&rsquo;s just say, 75-100GB of total disk space used for this service. Enough to load it up with some software, but not really media. That&rsquo;s OK because that&rsquo;s not what this system is for (yet anyway). I can write in-depth about why this number might or might not work for me.</p></li>
+</ul>
+
+<p>Perhaps I&rsquo;m naive, but I believe this is what it takes to have a truly available, reliable service in 2015. If you ask me it still beats
+depending on any single machine (or 2 or 3), and of course definitely beats lugging around my 486. Ignoring the accumulated commodity
+hardware cost and ISP cost (which you&rsquo;ll probably pay anyway), you&rsquo;re really looking at the price of electricity for running these machines
+and the price of cloud hosting.</p>
+
+<p>I&rsquo;m going to create a series out of this idea, detailing each point as I build out this entire cluster and discover which parts of my plan above actually make sense and which parts don&rsquo;t. By the end I hope to have some actual code to reproduce all of this and a good design. Who knows, maybe you&rsquo;ll find it useful?</p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="//eighthbyte.com/" style="background-image: url(//eighthbyte.com/images/logo.png)"><span class="hidden">Eighth Byte's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="//eighthbyte.com/">Zack Breckenridge</a></h4>
+  
+  <p>Software engineer, dev ops specialist.</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Tucson, AZ</span>
+    <span class="author-link icon-link"><a href="http://eighthbyte.com">http://eighthbyte.com</a></span>
+  </div>
+</section>
+
+
+
+    
+    <section class="share">
+      <h4>Share this post</h4>
+      <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=The%20Highly%20Available%20Nomad%20--%20Part%20I&amp;url=%2f%2feighthbyte.com%2fpost%2fha-nomad-i%2f"
+          onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <span class="hidden">Twitter</span>
+      </a>
+      <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2f%2feighthbyte.com%2fpost%2fha-nomad-i%2f"
+          onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <span class="hidden">Facebook</span>
+      </a>
+      <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=%2f%2feighthbyte.com%2fpost%2fha-nomad-i%2f"
+         onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <span class="hidden">Google+</span>
+      </a>
+    </section>
+    
+
+    
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname = 'eighthbyte';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+    
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Eighth Byte</a> All rights reserved - 2015</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="//eighthbyte.com/js/jquery.js"></script>
+    <script type="text/javascript" src="//eighthbyte.com/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="//eighthbyte.com/js/index.js"></script>
+
+</body>
+</html>
+

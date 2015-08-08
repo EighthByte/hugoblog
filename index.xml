@@ -7,46 +7,92 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved - 2015</copyright>
-    <lastBuildDate>Fri, 24 Jul 2015 14:31:38 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2015 21:35:02 -0700</lastBuildDate>
     <atom:link href="//eighthbyte.com/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Hello</title>
-      <link>//eighthbyte.com/post/post-title/</link>
-      <pubDate>Fri, 24 Jul 2015 14:31:38 -0700</pubDate>
+      <title>The Highly Available Nomad -- Part I</title>
+      <link>//eighthbyte.com/post/ha-nomad-i/</link>
+      <pubDate>Fri, 07 Aug 2015 21:35:02 -0700</pubDate>
       
-      <guid>//eighthbyte.com/post/post-title/</guid>
-      <description>&lt;p&gt;Every blog author needs a first post on a new blog. Hello there.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>First Post</title>
-      <link>//eighthbyte.com/post/post-title-one/</link>
-      <pubDate>Thu, 09 Jul 2015 17:08:11 -0700</pubDate>
-      
-      <guid>//eighthbyte.com/post/post-title-one/</guid>
+      <guid>//eighthbyte.com/post/ha-nomad-i/</guid>
       <description>
 
-&lt;h2 id=&#34;this-is-the-first-blog-poste:f066022a5cd7e2eba28340b66795b149&#34;&gt;This is the first blog poste&lt;/h2&gt;
+&lt;h1 id=&#34;the-highly-available-nomad-part-i:9a1083e3fbcd240cd5584227bfa91e2d&#34;&gt;The Highly Available Nomad &amp;ndash; Part I&lt;/h1&gt;
 
-&lt;p&gt;Welcome to Eighth Byte [8B]!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>About Eighthbyte</title>
-      <link>//eighthbyte.com/post/post-title-twooo/</link>
-      <pubDate>Tue, 09 Jun 2015 17:08:09 -0700</pubDate>
-      
-      <guid>//eighthbyte.com/post/post-title-twooo/</guid>
-      <description>
+&lt;p&gt;Being a child of the 80s and 90s, the proliferation of cheap relatively perfomant hardware still surprises
+me. As a tween, my massive 486 (with a tiny fraction of the perfomance and storage of my current cheap &amp;ldquo;netbook&amp;rdquo;,
+or even just my phone), well, it was far from mobile, even though I do remember lugging it to a friend&amp;rsquo;s house,
+CRT monitor, mechanical keyboard, 20 or so 2.5&amp;rdquo; slackware floppies and all.&lt;/p&gt;
 
-&lt;h1 id=&#34;first-heading:e6a0bff01fd722bafeff865963008e1e&#34;&gt;First Heading&lt;/h1&gt;
+&lt;p&gt;Eventually laptops were relatively accessible, in fact I still have a Compaq Presario I got in 2001-2002, now running NetBSD 5.x
+on a 6GB hard drive, which has taken quite a beating. Amazingly, it works fine, and with a USB -&amp;gt; ethernet
+adapter I have, I can actually put it online (and a fun story for another time: I had to patch the kernel image
+manually with sed or something to get it to recognize the vendor and device ID of said USB card). In fact I could
+probably take it to a coffee shop tomorrow and chain it to another device to get on WiFi without much trouble.&lt;/p&gt;
 
-&lt;h2 id=&#34;second-heading:e6a0bff01fd722bafeff865963008e1e&#34;&gt;Second Heading&lt;/h2&gt;
+&lt;p&gt;And then I&amp;rsquo;d have a functioning -albeit narrow- terminal, which brings me to my point: most of my daily work, whether it&amp;rsquo;s on
+a shiny new $2500 Macbook Pro, or my $250 ARM chromebook, consists of working in the terminal. Partly out of comfort and choice,
+and partly out of necessity. I&amp;rsquo;m not averse to GUIs or IDEs or even Sublime Text, but really, all I usually need
+is a terminal and a browser, and I can Get Stuff Done.&lt;/p&gt;
 
-&lt;p&gt;This should be plain text&lt;/p&gt;
+&lt;p&gt;Due to the availability of easily accessible broadband and cheap machines, most compute heavy loads I need I can push off
+to a more powerful machine in some static location, or to the cloud or whatever, and so can you of course. Though I know the state of the &amp;ldquo;cloud&amp;rdquo;
+and modern Internet is far from perfect, every day at least once a day momentarily, I&amp;rsquo;m still astounded and hit with some form of
+future shock. I have this amazing compute power available, and I&amp;rsquo;m now in the position of having to &lt;em&gt;figure out what to do with it all&lt;/em&gt;.
+Growing up with an interest in computing, I knew this was coming, and yet it still doesn&amp;rsquo;t feel 100% normal yet. I doubt it ever will.&lt;/p&gt;
+
+&lt;p&gt;Regardless, having that expectation of cheap, easily available technology in my childhood brain, the vivid image of the &amp;lsquo;nomad hacker&amp;rsquo; was always there. I often envisioned myself walking down the street at night (near some dark vacant lot with a single street lamp perhaps) and then just finding a place to kneel, busting out my laptop, and starting to hack away on something intense and important.&lt;/p&gt;
+
+&lt;p&gt;Well, I&amp;rsquo;m there and I can do that now, though of course I&amp;rsquo;d probably find a place to sit and use my smartphone instead. But I&amp;rsquo;m also older now and the reality has hit me that as the number of tasks grows, switching contexts just becomes a pain point, and switch contexts comes with the territory of having many cheap devices. I also have to consider &lt;em&gt;actual&lt;/em&gt; engineering concerns: what about data redundancy? Hardware failures? And why should I put any data I want to own on the cloud anyway? To any members of the next computing junkie generation who may have already figured these points out &amp;ndash; I admire and commend you.&lt;/p&gt;
+
+&lt;p&gt;Anyway, I prefer to host at least some of my own services in conjunction with cloud hosting. I prefer to use cheap laptops so I can break them and not really care. And I need a redundant, highly available environment from which to work. And I don&amp;rsquo;t just need redundancy of hardware, but also network redundancy &amp;ndash; with just a few internet services providers around, I need my &amp;ldquo;personal work service&amp;rdquo; to be reachable via at least two of them, all the time. Failure is not an option and I don&amp;rsquo;t trust anyone to actually provide this level of service.&lt;/p&gt;
+
+&lt;p&gt;I have some hardware, a few sites with working internet where I can install it, and these requirements to work with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;a couple cheap chromebooks as web browsers / SSH terminals (&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;4&lt;/sub&gt; the cost of a macbook and &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt; the cost of a high end PC laptop)&lt;/li&gt;
+&lt;li&gt;5 - 7 cheap, commodity 64-bit PCs and laptops, none of which is more than 5 years old. All of these with &amp;gt;300GB disk and &amp;gt;=4GB RAM, all running Linux, and all with VT-x or AMD-V (for KVM support)&lt;/li&gt;
+&lt;li&gt;a few (2-3) cheap cloud hosts to act as gateways for routing back to my various &amp;lsquo;sites&amp;rsquo;. This is of course slow, but I try to avoid forwarding ports at the sites themselves to keep router configuration as simple as possible.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;On top of all that, as a user, I love FreeBSD (and all the BSDs in fact &amp;ndash; they all have something great to offer in my experience). This
+brings my &amp;ldquo;plan&amp;rdquo; into focus:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I have a few different hypervisors to work with on which I know FreeBSD works fairly well:
+
+&lt;ul&gt;
+&lt;li&gt;KVM&lt;/li&gt;
+&lt;li&gt;Xen&lt;/li&gt;
+&lt;li&gt;xhyve on Mac OS&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using a few different hypervisors is mostly a &amp;ldquo;for experience&amp;rdquo; thing for me, though of course the diversity might prove to be advantageous if a critical hypvervisor bug affects any of them: due to redundancy, I can just kill that instance, patch the bug, and restart without any service &amp;ldquo;downtime&amp;rdquo; (By the way, do check out the &lt;a href=&#34;https://github.com/mist64/xhyve&#34;&gt;xhyve project&lt;/a&gt; if you haven&amp;rsquo;t already. It&amp;rsquo;s one of the most interesting things to happen to OS X in a while, IMO).&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;An instance of FreeBSD in &amp;ldquo;the cloud&amp;rdquo; &amp;ndash; really either on AWS or some provider offering KVM. The location of the physical hardware hosting this instance could matter. Since I&amp;rsquo;m in Arizona, if I go with EC2, US-West-2 is probably a good choice (which I believe is in Southern Californa). Basically I want to reduce latency between any major ISP I&amp;rsquo;m stuck with and my main gateway host. This host&amp;rsquo;s main job is to act as a CARP front-end for an SSH VPN.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A second FreeBSD instance on a second, separate cloud service provider &amp;ndash; to provide redundancy redundancy.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;DNS can be seen as a SPOF, but I&amp;rsquo;m not too worried about it as I can host my own. In fact this is a good reason to stick with static IPs for this sort of configuration, and another good reason to have at least two bastion hosts, since the IP address(es) assigned to any of your cloud hosts might be reallocated at any time.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;File-level synchronization of FreeBSD HA VMs across LANs and WANs &amp;ndash; I&amp;rsquo;m thinking good old unison and some shell scripting.  Chief requirement is that although I don&amp;rsquo;t need the different HA hosts to be bit-for-bit identical, I would like for them to be functionally identical, and for most purposes, indistinguishable. So if I install a package on one host, all the others need to reflect that change as quickly as possible.  My synchronization protocol needs to be smart. When I log into any one instance and start making changes, this instance needs to become the &amp;lsquo;master&amp;rsquo; and needs to distribute changes to the other, at present unused, nodes as quickly as possible.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Maybe eventually replace the file-level synchronization with block level sync using &amp;ldquo;ZFS send&amp;rdquo;, or something like that. Right now I&amp;rsquo;m not using ZFS on my root filesystems.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Full disk encryption. Right now I&amp;rsquo;m letting the hypervisor / host machines handle this.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Let&amp;rsquo;s just say, 75-100GB of total disk space used for this service. Enough to load it up with some software, but not really media. That&amp;rsquo;s OK because that&amp;rsquo;s not what this system is for (yet anyway). I can write in-depth about why this number might or might not work for me.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Perhaps I&amp;rsquo;m naive, but I believe this is what it takes to have a truly available, reliable service in 2015. If you ask me it still beats
+depending on any single machine (or 2 or 3), and of course definitely beats lugging around my 486. Ignoring the accumulated commodity
+hardware cost and ISP cost (which you&amp;rsquo;ll probably pay anyway), you&amp;rsquo;re really looking at the price of electricity for running these machines
+and the price of cloud hosting.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m going to create a series out of this idea, detailing each point as I build out this entire cluster and discover which parts of my plan above actually make sense and which parts don&amp;rsquo;t. By the end I hope to have some actual code to reproduce all of this and a good design. Who knows, maybe you&amp;rsquo;ll find it useful?&lt;/p&gt;
 </description>
     </item>
     
