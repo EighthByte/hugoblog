@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>//eighthbyte.com/</loc>
-    <lastmod>2015-08-07T21:35:02-07:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2015-08-18T15:10:31-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>//eighthbyte.com/post/ha-nomad-i/</loc>
+    <loc>/post/ophcrack/</loc>
+    <lastmod>2015-08-18T15:10:31-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/ha-nomad-i/</loc>
     <lastmod>2015-08-07T21:35:02-07:00</lastmod>
   </url>
   

@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Availability on Eighth Byte</title>
-    <link>//eighthbyte.com/tags/availability/</link>
+    <link>/tags/availability/</link>
     <description>Recent content in Availability on Eighth Byte</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved - 2015</copyright>
     <lastBuildDate>Fri, 07 Aug 2015 21:35:02 -0700</lastBuildDate>
-    <atom:link href="//eighthbyte.com/tags/availability/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/availability/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The Highly Available Nomad -- Part I</title>
-      <link>//eighthbyte.com/post/ha-nomad-i/</link>
+      <link>/post/ha-nomad-i/</link>
       <pubDate>Fri, 07 Aug 2015 21:35:02 -0700</pubDate>
       
-      <guid>//eighthbyte.com/post/ha-nomad-i/</guid>
+      <guid>/post/ha-nomad-i/</guid>
       <description>&lt;p&gt;Being a child of the 80s and 90s, the proliferation of cheap relatively perfomant hardware still surprises
 me. As a tween, my massive 486 (with a tiny fraction of the perfomance and storage of my current cheap &amp;ldquo;netbook&amp;rdquo;,
 or even just my phone), well, it was far from mobile, even though I do remember lugging it to a friend&amp;rsquo;s house,

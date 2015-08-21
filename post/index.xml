@@ -2,20 +2,77 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Eighth Byte</title>
-    <link>//eighthbyte.com/post/</link>
+    <link>/post/</link>
     <description>Recent content in Posts on Eighth Byte</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved - 2015</copyright>
-    <lastBuildDate>Fri, 07 Aug 2015 21:35:02 -0700</lastBuildDate>
-    <atom:link href="//eighthbyte.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Aug 2015 15:10:31 -0700</lastBuildDate>
+    <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>4 Minute Password Recovery on Windows XP</title>
+      <link>/post/ophcrack/</link>
+      <pubDate>Tue, 18 Aug 2015 15:10:31 -0700</pubDate>
+      
+      <guid>/post/ophcrack/</guid>
+      <description>
+
+&lt;p&gt;I was recently given an old PC that had multiple user accounts, all of which required passwords to log in. The friend who donated the computer to my cause gave me full permission to try and break into it, knowing there was no sensitive information contained on it. Having heard there were many tools available for recovering Windows XP passwords, I looked forward to discovering just how easy it would be.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-device:ded07704442c789e14eae4fc7b9abbc4&#34;&gt;The device&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Dell OptiPlex GX280&lt;/li&gt;
+&lt;li&gt;OS: Windows XP Professional 32 Bit&lt;/li&gt;
+&lt;li&gt;BIOS: A08 (03/03/06)&lt;/li&gt;
+&lt;li&gt;Processor: Pentium 4 0F41 3.20GHz&lt;/li&gt;
+&lt;li&gt;Memory: 2GB 400MHz DDR2 SDRAM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;the-tools:ded07704442c789e14eae4fc7b9abbc4&#34;&gt;The tools&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;8GB USB Drive (you could probably go as small as 2GB)&lt;/li&gt;
+&lt;li&gt;UNetbootin&lt;/li&gt;
+&lt;li&gt;Ophcrack LiveCD (.iso)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;the-process:ded07704442c789e14eae4fc7b9abbc4&#34;&gt;The process&lt;/h4&gt;
+
+&lt;p&gt;After trying a few different tools without success (all LiveCD ISO&amp;rsquo;s), I came across &lt;a href=&#34;http://ophcrack.sourceforge.net/&#34;&gt;Ophcrack&lt;/a&gt; which worked surprisingly quick and easy. Ophcrack offers both an .exe, and a LiveCD .iso version, with options for Windows XP, Vista, and 7. If you&amp;rsquo;re just looking for the source code, and don&amp;rsquo;t want to use SourceForge, I&amp;rsquo;ve cloned it &lt;a href=&#34;https://github.com/EighthByte/ophcrack&#34;&gt;here&lt;/a&gt; for your consumption.&lt;/p&gt;
+
+&lt;p&gt;The host system I used for creating the LiveCD was OSX, as a MacBook was all I had on hand. I used a tool called &lt;a href=&#34;http://unetbootin.github.io/&#34;&gt;UNetbootin&lt;/a&gt; to create the LiveCD on a USB drive. Using UNetbootin was a painless process; essentially you download the ISO you intend to boot from, start UNetbootin, select your image and target drive, then hit ok.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../images/ophcrack/unetbootin.png&#34; alt=&#34;UNetbootin GUI&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once UNetbootin had finished creating the LiveCD on USB, it was ejected, and inserted into the target computer.&lt;/p&gt;
+
+&lt;p&gt;Selecting F12 upon starting this Dell machine took me to the boot menu, where I selected which device I wanted to boot from. &amp;ldquo;USB Device&amp;rdquo; was selected, which then took me to a menu where I could select the mode of Ophcrack I wanted to start.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../images/ophcrack/bootmenu.png&#34; alt=&#34;Boot Menu&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I selected &amp;ldquo;Ophcrack Graphic mode - automatic&amp;rdquo; which then booted into a Linux based GUI, and automatically began running the Ophcrack tool.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;../../images/ophcrack/ophcrackmenu.png&#34; alt=&#34;Ophcrack Menu&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For security reasons I won&amp;rsquo;t be posting images of the user names, hashes or passwords that Ophcrack uncovered. I will however tell you it took only 3 minutes and 38 seconds to produce &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;6&lt;/sub&gt; passwords and &lt;sup&gt;6&lt;/sup&gt;&amp;frasl;&lt;sub&gt;6&lt;/sub&gt; user names. The passwords it failed to recover were for disabled accounts, which likely did not have passwords associated with them.&lt;/p&gt;
+
+&lt;p&gt;The data was displayed in a table with the columns: User, LM Hash, NT Hash, LM Pwd1, LM Pwd 2, and NT Pwd. All I needed was the User (user name), and the NT Pwd (password). I wrote all of the login options down, rebooted the computer into Windows and began attempting each of the provided login credentials. Delightfully, all of the user names and passwords gave me access to each user account, the most useful of which was obviously the Administrator account.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I don&amp;rsquo;t condone cracking passwords for nefarious purposes. This was done with full permission from the original owner of the computer, and completed as a learning exercise. Immediately after gaining access I wiped the drive, and installed a flavor of Linux (obviously).&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>The Highly Available Nomad -- Part I</title>
-      <link>//eighthbyte.com/post/ha-nomad-i/</link>
+      <link>/post/ha-nomad-i/</link>
       <pubDate>Fri, 07 Aug 2015 21:35:02 -0700</pubDate>
       
-      <guid>//eighthbyte.com/post/ha-nomad-i/</guid>
+      <guid>/post/ha-nomad-i/</guid>
       <description>&lt;p&gt;Being a child of the 80s and 90s, the proliferation of cheap relatively perfomant hardware still surprises
 me. As a tween, my massive 486 (with a tiny fraction of the perfomance and storage of my current cheap &amp;ldquo;netbook&amp;rdquo;,
 or even just my phone), well, it was far from mobile, even though I do remember lugging it to a friend&amp;rsquo;s house,

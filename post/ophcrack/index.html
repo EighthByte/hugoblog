@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" 4 Minute Password Recovery on Windows XP &middot;  Eighth Byte" />
+  	<meta property="og:site_name" content="Eighth Byte" />
+  	<meta property="og:url" content="/post/ophcrack/" />
+    
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2015-08-18T15:10:31-07:00" />
+
+    
+    <meta property="og:article:tag" content="Ophcrack" />
+    
+    <meta property="og:article:tag" content="Windows" />
+    
+    <meta property="og:article:tag" content="Security" />
+    
+    
+
+  <title>
+     4 Minute Password Recovery on Windows XP &middot;  Eighth Byte
+  </title>
+
+    <meta name="description" content="Tech Blog" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+	  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    
+    <link rel="stylesheet" type="text/css" href="css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+        <link href="http://feeds.feedburner.com/..." rel="alternate" type="application/rss+xml" title="Eighth Byte" />
+    
+    <meta name="generator" content="Hugo 0.14" />
+
+    <link rel="canonical" href="//post/ophcrack/" />
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-65431024-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://feeds.feedburner.com/...">Subscribe</a> </div>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href=""><img src="images/logo.png" alt="Home" /></a>
+  
+  
+      <a class="menu-button icon-feed" href="index.xml">&nbsp;&nbsp;Subscribe</a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">4 Minute Password Recovery on Windows XP</h1>
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2015-08-18T15:10:31-07:00">
+            Aug 18, 2015
+          </time>
+        
+         
+          <span class="post-tag small"><a href="tags/ophcrack/">#Ophcrack</a></span>
+         
+          <span class="post-tag small"><a href="tags/windows/">#Windows</a></span>
+         
+          <span class="post-tag small"><a href="tags/security/">#Security</a></span>
+         
+        </section>
+    </header>
+  
+    <section class="post-content">
+      
+
+<p>I was recently given an old PC that had multiple user accounts, all of which required passwords to log in. The friend who donated the computer to my cause gave me full permission to try and break into it, knowing there was no sensitive information contained on it. Having heard there were many tools available for recovering Windows XP passwords, I looked forward to discovering just how easy it would be.</p>
+
+<h4 id="the-device:ded07704442c789e14eae4fc7b9abbc4">The device</h4>
+
+<ul>
+<li>Dell OptiPlex GX280</li>
+<li>OS: Windows XP Professional 32 Bit</li>
+<li>BIOS: A08 (03/03/06)</li>
+<li>Processor: Pentium 4 0F41 3.20GHz</li>
+<li>Memory: 2GB 400MHz DDR2 SDRAM</li>
+</ul>
+
+<h4 id="the-tools:ded07704442c789e14eae4fc7b9abbc4">The tools</h4>
+
+<ul>
+<li>8GB USB Drive (you could probably go as small as 2GB)</li>
+<li>UNetbootin</li>
+<li>Ophcrack LiveCD (.iso)</li>
+</ul>
+
+<h4 id="the-process:ded07704442c789e14eae4fc7b9abbc4">The process</h4>
+
+<p>After trying a few different tools without success (all LiveCD ISO&rsquo;s), I came across <a href="http://ophcrack.sourceforge.net/">Ophcrack</a> which worked surprisingly quick and easy. Ophcrack offers both an .exe, and a LiveCD .iso version, with options for Windows XP, Vista, and 7. If you&rsquo;re just looking for the source code, and don&rsquo;t want to use SourceForge, I&rsquo;ve cloned it <a href="https://github.com/EighthByte/ophcrack">here</a> for your consumption.</p>
+
+<p>The host system I used for creating the LiveCD was OSX, as a MacBook was all I had on hand. I used a tool called <a href="http://unetbootin.github.io/">UNetbootin</a> to create the LiveCD on a USB drive. Using UNetbootin was a painless process; essentially you download the ISO you intend to boot from, start UNetbootin, select your image and target drive, then hit ok.</p>
+
+<p><img src="../../images/ophcrack/unetbootin.png" alt="UNetbootin GUI" />
+</p>
+
+<p>Once UNetbootin had finished creating the LiveCD on USB, it was ejected, and inserted into the target computer.</p>
+
+<p>Selecting F12 upon starting this Dell machine took me to the boot menu, where I selected which device I wanted to boot from. &ldquo;USB Device&rdquo; was selected, which then took me to a menu where I could select the mode of Ophcrack I wanted to start.</p>
+
+<p><img src="../../images/ophcrack/bootmenu.png" alt="Boot Menu" />
+</p>
+
+<p>I selected &ldquo;Ophcrack Graphic mode - automatic&rdquo; which then booted into a Linux based GUI, and automatically began running the Ophcrack tool.</p>
+
+<p><img src="../../images/ophcrack/ophcrackmenu.png" alt="Ophcrack Menu" />
+</p>
+
+<p>For security reasons I won&rsquo;t be posting images of the user names, hashes or passwords that Ophcrack uncovered. I will however tell you it took only 3 minutes and 38 seconds to produce <sup>4</sup>&frasl;<sub>6</sub> passwords and <sup>6</sup>&frasl;<sub>6</sub> user names. The passwords it failed to recover were for disabled accounts, which likely did not have passwords associated with them.</p>
+
+<p>The data was displayed in a table with the columns: User, LM Hash, NT Hash, LM Pwd1, LM Pwd 2, and NT Pwd. All I needed was the User (user name), and the NT Pwd (password). I wrote all of the login options down, rebooted the computer into Windows and began attempting each of the provided login credentials. Delightfully, all of the user names and passwords gave me access to each user account, the most useful of which was obviously the Administrator account.</p>
+
+<p><em><strong>Disclaimer:</strong> I don&rsquo;t condone cracking passwords for nefarious purposes. This was done with full permission from the original owner of the computer, and completed as a learning exercise. Immediately after gaining access I wiped the drive, and installed a flavor of Linux (obviously).</em></p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="" style="background-image: url(images/logo.png)"><span class="hidden">Eighth Byte's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="">Noah Van Gorden</a></h4>
+  
+  <p>Software developer, open source enthusiast</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Tucson, AZ</span>
+    <span class="author-link icon-link"><a href="http://noahvangorden.com">http://noahvangorden.com</a></span>
+  </div>
+</section>
+
+
+
+    
+    <section class="share">
+      <h4>Share this post</h4>
+      <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=4%20Minute%20Password%20Recovery%20on%20Windows%20XP&amp;url=%2fpost%2fophcrack%2f"
+          onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <span class="hidden">Twitter</span>
+      </a>
+      <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fophcrack%2f"
+          onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <span class="hidden">Facebook</span>
+      </a>
+      <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=%2fpost%2fophcrack%2f"
+         onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <span class="hidden">Google+</span>
+      </a>
+    </section>
+    
+
+    
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname = 'eighthbyte';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+    
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Eighth Byte</a> All rights reserved - 2015</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tag2 on Eighth Byte</title>
+    <link>http://localhost:1313/eighthbyte.com/tags/tag2/</link>
+    <description>Recent content in Tag2 on Eighth Byte</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2015</copyright>
+    <lastBuildDate>Tue, 18 Aug 2015 15:10:31 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/eighthbyte.com/tags/tag2/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>4 Minute Password Recovery on Windows XP</title>
+      <link>http://localhost:1313/eighthbyte.com/post/ophcrack/</link>
+      <pubDate>Tue, 18 Aug 2015 15:10:31 -0700</pubDate>
+      
+      <guid>http://localhost:1313/eighthbyte.com/post/ophcrack/</guid>
+      <description>
+
+&lt;p&gt;Recently I was given an old PC that had multiple user accounts all of which required passwords to log in. The friend who donated the computer to my cause gave me full permission to try and break into it, knowing there was no sensitive information contained on it. Having heard there were many tools available for recovering Windows XP passwords, I looked forward to discovering just how easy it would be.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-device:ded07704442c789e14eae4fc7b9abbc4&#34;&gt;The device&lt;/h3&gt;
+
+&lt;p&gt;Dell Optiplex GX280
+  OS: Windows XP Professional 32 Bit
+  BIOS: A08 (03/03/06)
+  Processor: Pentium 4 0F41 3.20GHz
+  Memory: 2GB 400MHz DDR2 SDRAM&lt;/p&gt;
+
+&lt;h3 id=&#34;the-process:ded07704442c789e14eae4fc7b9abbc4&#34;&gt;The process&lt;/h3&gt;
+
+&lt;p&gt;After tring a few different tools (all live disk ISO&amp;rsquo;s) without success, I came across &lt;a href=&#34;http://ophcrack.sourceforge.net/&#34;&gt;Orphcrack&lt;/a&gt; which worked suprisingly quickly and easily. Orphcrack offers both a .exe and liveCD, with options for Windows XP, Vista, and 7. If you&amp;rsquo;re just looking for the source code, and don&amp;rsquo;t want to use SourceForge, I&amp;rsquo;ve cloned it for your consumption &lt;a href=&#34;https://github.com/EighthByte/ophcrack&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The host system I used for creating the liveCD was OSX, as a Macbook was all I had on hand. I used a tool called &lt;a href=&#34;http://unetbootin.github.io/&#34;&gt;UNetbootin&lt;/a&gt; to create the liveCD on a USB drive. Using UNetbootin was a painless process. Essentially, you download the ISO you intend to boot from, start UNetbootin, select your image and target drive, then hit ok.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/ophcrack/unetbootin.png&#34; alt=&#34;screenshot&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Once UNetbootin had finished creating the liveCD on USB, it was ejected and inserted into the target computer.&lt;/p&gt;
+
+&lt;p&gt;Selecting F12 upon starting this Dell machine will take you to a boot menu where you can select which device you would like to boot from. &amp;ldquo;USB Device&amp;rdquo; was selected, which then takes you to a UNetbootin menu where you can select the mode of Ophcrack you would like to start. I selected &amp;ldquo;Ophcrack Graphic mode - automatic&amp;rdquo; which then boots into a linux based GUI, and automatically begins running the Ophcrack tool.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/ophcrack/bootmenu.png&#34; alt=&#34;Boot Menu&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/ophcrack/ophcrackmenu.png&#34; alt=&#34;Ophcrack Menu&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For security reasons I won&amp;rsquo;t be posting images of the user names, hashes or passwords that ophcrack uncovered. I will tell you however it took only 3 minutes and 38 seconds to produce &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;6&lt;/sub&gt; passwords and &lt;sup&gt;6&lt;/sup&gt;&amp;frasl;&lt;sub&gt;6&lt;/sub&gt; user names. The passwords it did not recover were for disabled accounts, which likely did not have passwords associated with them.&lt;/p&gt;
+
+&lt;p&gt;The data was displayed in a table with columns: User, LM Hash, NT Hash, LM Pwd1, LM Pwd 2, and NT Pwd. All I needed was the User (user name), and the NT Pwd (password). I wrote all of the login options down, rebooted the computer into Windows and began attempting each of the provided login credentials. Delightfully, all of the user names and passwords including one for the Administrator allowed me to log in.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
